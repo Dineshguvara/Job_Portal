@@ -1,0 +1,25 @@
+{
+  "jobOpen": [
+    {
+      "id": 1,
+      "job_title": " job title 1",
+      "descriptiom": "job desc  message 1",
+      "location": " job location 1"
+    }
+  ],
+  "profileUpload": [
+    {
+      "id": 1,
+      "email": "  ",
+      "document": "  ",
+      "primary_skill":""
+       
+    },
+    {
+      "email": "dwq@gmail.com",
+      "document": "",         
+      "location": "madurai",
+      "id": 2
+    }
+  ]
+}
