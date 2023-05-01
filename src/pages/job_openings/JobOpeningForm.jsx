@@ -21,54 +21,16 @@ function EmployeeForm() {
  
   let navi = useNavigate();
 
-    const [jobTitle, setJobTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [location, setLocation] = useState("");
-    const [primarySkill, setPrimarySkill] = useState("");
+    
  
 
   const{register, handleSubmit, formState:{errors} }= useForm();
 
-  const { empid } = useParams()    
-
-  useEffect(() => {
-    if(empid){
-      fetch("http://localhost:8002/jobOpen/" + empid).then((res)=>{
-        return res.json();
-      }).then((resp)=>{         
-        setJobTitle(resp.job_title);
-        setDescription(resp.description);
-        setLocation(resp.location);       
-      }).catch((err)=>{
-        console.log(err.message);
-      })
-    }
-    }, [])    
+  
 
     const formSubmiter = async (data) =>{   
        
-      if (empid) {
-        fetch("http://localhost:8002/jobOpen/"+ empid,{
-        method:"PUT",
-        headers:{"content-type":"application/json"},
-        body:JSON.stringify(data)
-      }).then((res)=>{      
-         navi("/job_open")
-      }).catch((err)=>{
-        console.log(err.message)
-      })
-    } else {
-      fetch("http://localhost:8002/jobOpen",{
-        method:"POST",
-        headers:{"content-type":"application/json"},
-        body:JSON.stringify(data)
-      }).then((resp)=>{      
-         navi("/job_open")
-      }).catch((err)=>{
-        console.log(err.message)
-      })
-      
-    }
+      console.log(data);
   }  
   
 
@@ -96,8 +58,7 @@ function EmployeeForm() {
             {...register("job_title", {
               required: " Job Title is required",
             })}
-            value={jobTitle}
-              onChange={e=>setJobTitle(e.target.value)}
+            
           />
           <FormErrorMessage>
             {errors.job_title && errors.job_title.message}
@@ -112,8 +73,7 @@ function EmployeeForm() {
             {...register("primary_skill", {
               required: "Primary Skills is required",
             })}
-            value={primarySkill}
-            onChange={e=>setPrimarySkill(e.target.value)}
+            
           />
           <FormErrorMessage>
             {errors.primary_skill && errors.primary_skill.message}
@@ -128,8 +88,7 @@ function EmployeeForm() {
             {...register("location", {
               required: "Location is required",
             })}
-            value={location}
-            onChange={e=>setLocation(e.target.value)}
+            
           />
           <FormErrorMessage>
             {errors.location && errors.location.message}
@@ -144,8 +103,7 @@ function EmployeeForm() {
             {...register("description", {
               required: "Description is required",
             })}
-            value={description}
-            onChange={e=>setDescription(e.target.value)}
+            
           />
           <FormErrorMessage>
             {errors.description && errors.description.message}

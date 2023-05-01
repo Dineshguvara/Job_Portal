@@ -14,6 +14,20 @@ const initialState = {
             value:"waren1"
         }
     ],
+    skills: [
+        {
+            value: 'html',
+            label: 'HTML'
+        },
+        {
+            value: 'css',
+            label: 'CSS'
+        },
+        {
+            value: 'js',
+            label: 'JAVASCRIPT'
+        },
+    ],
 }
 
 export const newSlice = createSlice({
@@ -27,13 +41,15 @@ export const newSlice = createSlice({
             }else{
                 state.value="small"
             }            
-        },        
-        addDistricts: (state, { payload }) => (state = { ...state, districts: payload}),
+        },      
+        addSkills: (state, { payload }) => (state = { ...state, skills: addSkill(state,payload) }),
     }
 }) 
 
- 
+function addSkill(state,data) {
+    return state.skills.concat(data)
+}
 
  
-export const { addDistricts, setNavSize} = newSlice.actions;
+export const { addSkills, setNavSize} = newSlice.actions;
 export   default newSlice.reducer

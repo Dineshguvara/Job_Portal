@@ -11,6 +11,7 @@ import ProfileUploadForm from './pages/profile_upload/ProfileUploadForm';
 
 import Feedback from './pages/feedback/Feedback';
 import FeedbackForm from './pages/feedback/FeedbackForm'
+import AddSkill from './pages/feedback/Skill';
 
 function App() {
   return (
@@ -23,11 +24,12 @@ function App() {
           <Route path='/job_open'  element={<JobOpening/>} />  
           <Route path='/create_job_open'  element={<JobOpeningForm/>} />  
             
-          <Route path='/pro_upload'  element={<ProfileUpload/>} />  
+          <Route path='/pro_upload'  element={<ProfileUpload/>} />   
           <Route path='/create_pro_upload'  element={<ProfileUploadForm/>} />  
            
           <Route path='/feedback'  element={<Feedback/>} />  
           <Route path='/create_feedback'  element={<FeedbackForm/>} />  
+          <Route path='/create_skill'  element={<AddSkill/>} />  
 
         </Route>
       </Routes>

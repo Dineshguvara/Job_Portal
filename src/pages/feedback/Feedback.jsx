@@ -45,6 +45,7 @@ function Feedback() {
                             <Th>  Skills </Th>
                             <Th>  Candidate Rating </Th>      
                             <Th>  Interview Rating </Th>                                        
+                            <Th>   Action  </Th>                                        
                           </Tr>
                         </Thead>
                         <Tbody>  

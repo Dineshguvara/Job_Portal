@@ -24,25 +24,25 @@ import { ArrowBackIcon } from "@chakra-ui/icons";
 import { Select } from "chakra-react-select";
 import { useSelector } from "react-redux";
 
-const skill = [
-  {
-    value: "naukri",
-    label: "Naukri",
-  },
-  {
-    value: "linkedin",
-    label: "LinkedIn",
-  },
-  {
-    value: "indeed",
-    label: "Indeed",
-  },
-];
+// const skill = [
+//   {
+//     value: "naukri",
+//     label: "Naukri",
+//   },
+//   {
+//     value: "linkedin",
+//     label: "LinkedIn",
+//   },
+//   {
+//     value: "indeed",
+//     label: "Indeed",
+//   },
+// ];
 
 function FeedbackForm() {
   let navi = useNavigate();
 
-  const { candidateName } = useSelector((state) => state.poste);
+  const { skills, candidateName } = useSelector((state) => state.poste);
 
   const {
     register,
@@ -66,7 +66,7 @@ function FeedbackForm() {
 
   const formSubmiter = (data) => {
     console.log(data);
-    navi("/");
+    
   };
 
   return (
@@ -115,12 +115,13 @@ function FeedbackForm() {
                 </FormControl>
               )}
             />
-            <TableContainer mt={8}>
+            <TableContainer mt={8} style={{ overflowX:"visible", overflowY:"visible" }}>
               <Table variant="simple">
                 <Thead>
                   <Tr>
                     <Th> Skills </Th>
-                    <Th> Candidate Skill</Th>
+                    <Th>  Candidate Rating </Th>      
+                    <Th>  Interview Rating </Th> 
                     <Th> Action </Th>
                   </Tr>
                 </Thead>
@@ -130,20 +131,71 @@ function FeedbackForm() {
                   itemFields.map((item, index) => {
                     return (
                       <Tr key={item.id}>                        
-                        <Td>{item.id} </Td>
-                        <Td>
-                        <FormControl isInvalid={errors.document}>
+                        <Td>         
+                          <Controller
+                            control={control}
+                            name={`Skill.${index}.skill`}
+                            rules={{
+                              required: "Please Select Skill.",
+                            }}
+                            render={({
+                              field: { onChange, onBlur, value, name, ref },
+                               fieldState: { error },
+                            }) => (
+                              <FormControl isInvalid={errors.Skill?.[index]?.skill}>
+                                
+                                <Select
+                                 className="z-index"
+                                  name={name}
+                                  ref={ref}
+                                  onChange={(e) => {
+                                    onChange(e);
+                                  }}
+                                  onBlur={onBlur} 
+                                  value={value}
+                                  options={skills}
+                                  getOptionLabel={(e) => e.label}
+                                  getOptionValue={(e) => e.value}
+                                  placeholder=" Skill"
+                                  closeMenuOnSelect={true}
+                                  size="sm"
+                                />
+                                <FormErrorMessage>{errors.Skill?.[index]?.skill?.message}</FormErrorMessage>
+                              </FormControl>
+                            )}
+                          />
+                        </Td>
+                        
+                        <Td isNumeric>
+                        <FormControl isInvalid={errors.Skill?.[index]?.canRat}>
                             
                             <Input
-                              type="input"
-                              placeholder="enter something"
-                              {...register(`Skill.${index}.item`, {
-                                required: "Document is required",
+                              type="number"
+                              placeholder="Enter Ratings"
+                              {...register(`Skill.${index}.canRat`, {
+                                required: "Rating is required",
                               })}
                               
                             />
                             <FormErrorMessage>
-                              {errors.document && errors.document.message}
+                                {errors.Skill?.[index]?.canRat?.message}
+                            </FormErrorMessage>
+                          </FormControl>
+                        </Td>
+
+                        <Td isNumeric>
+                        <FormControl isInvalid={errors.Skill?.[index]?.invRat}>
+                            
+                            <Input
+                              type="number"
+                              placeholder="Enter Ratings"
+                              {...register(`Skill.${index}.invRat`, {
+                                required: "Rating is required",
+                              })}
+                              
+                            />
+                            <FormErrorMessage>
+                                {errors.Skill?.[index]?.invRat?.message}
                             </FormErrorMessage>
                           </FormControl>
                         </Td>
@@ -161,17 +213,19 @@ function FeedbackForm() {
             </TableContainer>              
           </Stack>  
             
-          <Button  colorScheme="blue" float="right" mt={5}  onClick={()=>appendItem()}> Add inputs </Button>
+          <Button  colorScheme="blue" float="right" mt={5}  onClick={()=>appendItem()}> Add Skill </Button>
+          <Link to={"/create_skill"}> 
+          <Button  colorScheme="blue" float="right" mt={5} mr={3 }  >  New Skill </Button>  
+          </Link>
            
           <Flex mt={10}>
             <Button type="submit" colorScheme="teal"> 
               Submit
-            </Button>{" "}
-           
+            </Button>            
             &nbsp;
             <Link to="/pro_upload">
-              {" "}
-              <Button colorScheme="red">Back</Button>{" "}
+             
+              <Button colorScheme="red">Back</Button> 
             </Link>
           </Flex>
         </Box>
