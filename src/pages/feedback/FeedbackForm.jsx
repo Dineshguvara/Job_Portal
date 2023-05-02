@@ -17,30 +17,29 @@ import {
   Flex,
   Textarea,
   Heading,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useForm, Controller, useFieldArray } from "react-hook-form";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { Select } from "chakra-react-select";
-import { useSelector } from "react-redux";
-
-// const skill = [
-//   {
-//     value: "naukri",
-//     label: "Naukri",
-//   },
-//   {
-//     value: "linkedin",
-//     label: "LinkedIn",
-//   },
-//   {
-//     value: "indeed",
-//     label: "Indeed",
-//   },
-// ];
-
+import { useSelector, useDispatch } from "react-redux";
+import { addSkills } from "../../features/newSlice";
+ 
 function FeedbackForm() {
+
   let navi = useNavigate();
+
+  const dispatch = useDispatch();
+
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   const { skills, candidateName } = useSelector((state) => state.poste);
 
@@ -49,7 +48,15 @@ function FeedbackForm() {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  }  = useForm({
+    mode: "onBlur",
+  });
+   
+  const {
+    register: registers,
+    formState: { errors: errors2 },
+    handleSubmit: handleSubmit2,
+  }  = useForm();
 
   const {
     fields: itemFields,
@@ -64,8 +71,14 @@ function FeedbackForm() {
     appendItem();
   }
 
+  const formSubmiter2 =  (data) => {
+    console.log(JSON.stringify(data));
+    dispatch(addSkills(data));
+    onClose();
+};
+
   const formSubmiter = (data) => {
-    console.log(data);
+    console.log(JSON.stringify(data));
     
   };
 
@@ -82,7 +95,7 @@ function FeedbackForm() {
           </Heading>
         </Flex>
       </Box>
-      <form onSubmit={handleSubmit(formSubmiter)}>
+      <form key={1}  onSubmit={handleSubmit(formSubmiter)}>
         <Box p={4} color="black" bg="white" style={{ borderRadius: "10px" }}>
           <Stack spacing={4}>
             <Controller
@@ -213,11 +226,63 @@ function FeedbackForm() {
             </TableContainer>              
           </Stack>  
             
-          <Button  colorScheme="blue" float="right" mt={5}  onClick={()=>appendItem()}> Add Skill </Button>
-          <Link to={"/create_skill"}> 
+          <Button  colorScheme="blue" float="right" mt={5}  onClick={()=>appendItem()}> Add  Skill </Button>
+          {/* <Link to={"/create_skill"}> 
           <Button  colorScheme="blue" float="right" mt={5} mr={3 }  >  New Skill </Button>  
-          </Link>
-           
+          </Link> */}
+          
+          <Button  colorScheme="blue" float="right" mt={5} mr={3 } onClick={onOpen} > Create  Skill </Button>  
+          <Modal isOpen={isOpen} onClose={onClose}>
+            <ModalOverlay />
+            <ModalContent>               
+              <ModalCloseButton />
+
+              <ModalBody>
+                <form key={2}  onSubmit={handleSubmit2(formSubmiter2)}>
+                  <Box p={4} color="black" bg="white" style={{ borderRadius: "10px" }}>
+                      <Stack spacing={4}>                   
+
+                      <FormControl isInvalid={errors2.label}>
+                          <FormLabel color="gray.600"> Name </FormLabel>
+                          <Input
+                          type="text"
+                          placeholder="Label"
+                          {...registers("label", {
+                              required: "Enter Label",
+                          })}
+                          />
+                          <FormErrorMessage>
+                          {errors2.label && errors2.label.message}
+                          </FormErrorMessage>
+                      </FormControl>   
+
+                      <FormControl isInvalid={errors2.value}>
+                          <FormLabel color="gray.600"> Value </FormLabel>
+                          <Input
+                          type="text"
+                          placeholder="Value"
+                          {...registers("value", {
+                              required: "Enter Value",
+                          })}
+                          />
+                          <FormErrorMessage>
+                          {errors2.value && errors2.value.message}
+                          </FormErrorMessage>
+                      </FormControl>     
+                      <Button colorScheme='green' type="submit" > Save </Button> &nbsp;               
+                      </Stack>
+                  </Box>
+                </form>
+              </ModalBody>
+
+              {/* <ModalFooter>               
+                <Button colorScheme='blue' mr={3} onClick={onClose}>
+                  Close
+                </Button>               
+              </ModalFooter> */}
+            </ModalContent>
+          </Modal>
+
           <Flex mt={10}>
             <Button type="submit" colorScheme="teal"> 
               Submit
@@ -233,5 +298,7 @@ function FeedbackForm() {
     </>
   );
 }
+
+
 
 export default FeedbackForm;

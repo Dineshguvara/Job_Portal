@@ -11,8 +11,8 @@ import ProfileUploadForm from './pages/profile_upload/ProfileUploadForm';
 
 import Feedback from './pages/feedback/Feedback';
 import FeedbackForm from './pages/feedback/FeedbackForm'
-import AddSkill from './pages/feedback/Skill';
-
+ 
+import AddSkill from './pages/feedback/AddSkill';
 function App() {
   return (
     <>

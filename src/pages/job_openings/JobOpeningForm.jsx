@@ -21,16 +21,14 @@ function EmployeeForm() {
  
   let navi = useNavigate();
 
-    
- 
-
   const{register, handleSubmit, formState:{errors} }= useForm();
 
   
 
-    const formSubmiter = async (data) =>{   
+  const formSubmiter = async (data) =>{   
        
       console.log(data);
+      navi("/")
   }  
   
 
