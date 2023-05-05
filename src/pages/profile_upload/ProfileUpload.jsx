@@ -14,7 +14,8 @@ import {
     Heading,
     Flex
   } from '@chakra-ui/react'
-import {  ArrowBackIcon } from "@chakra-ui/icons";
+import {  ArrowBackIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import profileUploadData from './ProfileUploadData'
 
 function ProfileUpload() {
 
@@ -41,6 +42,9 @@ function ProfileUpload() {
                         <Thead>
                         <Tr>
                             <Th> #</Th>
+                            <Th> Name</Th>
+                            <Th> Job Id </Th>
+                            <Th> Job Title </Th>
                             <Th> Email </Th>
                             <Th> Document  </Th>
                             <Th> Source </Th>      
@@ -48,7 +52,25 @@ function ProfileUpload() {
                         </Tr>
                         </Thead>
                         <Tbody>  
-                            
+                            {
+                                 profileUploadData.map((item)=>{
+                                    return(
+                                        <Tr key={item.id}>
+                                            <Td>{item.id}</Td>
+                                            <Td>{item.name}</Td>
+                                            <Td>{item.job_id}</Td>
+                                            <Td>{item.job_title}</Td>
+                                            <Td>{item.email}</Td>
+                                            <Td>{item.document}</Td>
+                                            <Td>{item.source}</Td>                                            
+                                            <Td>
+                                                <EditIcon/> &nbsp; &nbsp;  
+                                                <DeleteIcon/>                                           
+                                            </Td>
+                                        </Tr>
+                                    )
+                                })       
+                            }
                         </Tbody>                        
                     </Table>
                 </TableContainer>

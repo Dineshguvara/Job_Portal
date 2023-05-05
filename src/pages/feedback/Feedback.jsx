@@ -14,7 +14,8 @@ import {
     Heading,
     Flex
   } from '@chakra-ui/react'
-import {  ArrowBackIcon } from "@chakra-ui/icons";
+import {  ArrowBackIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import feedbackData from "./FeedbackData";
 
 function Feedback() {
 
@@ -42,7 +43,7 @@ function Feedback() {
                           <Tr>
                             <Th>  # </Th>
                             <Th>  Name </Th>
-                            <Th>  Skills </Th>
+                            <Th>  Primary Skills </Th>
                             <Th>  Candidate Rating </Th>      
                             <Th>  Interview Rating </Th>                                        
                             <Th>   Action  </Th>                                        
@@ -50,7 +51,21 @@ function Feedback() {
                         </Thead>
                         <Tbody>  
                             {
-
+                                feedbackData.map((item)=>{
+                                    return(
+                                        <Tr key={item.id}>
+                                            <Td>{item.id}</Td>
+                                            <Td>{item.name}</Td>
+                                            <Td>{item.skills}</Td>
+                                            <Td>{item.candidate_rating}</Td>
+                                            <Td>{item.interviewer_rating}</Td>                                            
+                                            <Td>
+                                                <EditIcon/> &nbsp;  &nbsp;
+                                                <DeleteIcon/>                                           
+                                            </Td>
+                                        </Tr>
+                                    )
+                                })    
                             }
                         </Tbody>                        
                     </Table>

@@ -11,30 +11,48 @@ import {
   Textarea,
   Heading
 } from "@chakra-ui/react";
-import { useForm } from "react-hook-form";
-import { useNavigate, useParams, Link } from "react-router-dom";
+import { useForm, Controller } from "react-hook-form";
+import { useNavigate, Link } from "react-router-dom";
 import {  ArrowBackIcon } from "@chakra-ui/icons";
- 
+import { Select } from "chakra-react-select";
+import { useDispatch } from "react-redux";
+import { setId } from "../../features/jobIdSlice";
+import { setJobTitle } from "../../features/jobTitleSlice";
 
+const Skills = [
+  {
+    value: "naukri",
+    label: "Naukri",
+  },
+  {
+    value: "linkedin",
+    label: "LinkedIn",
+  },
+  {
+    value: "indeed",
+    label: "Indeed",
+  }
+]
 
 function EmployeeForm() {
  
   let navi = useNavigate();
 
-  const{register, handleSubmit, formState:{errors} }= useForm();
+  const{register, control,  handleSubmit, formState:{errors} }= useForm();
 
-  
+  const dispatch = useDispatch();
 
-  const formSubmiter = async (data) =>{   
-       
+  const formSubmiter = async (data) =>{          
       console.log(data);
-      navi("/")
+      dispatch(setId(data));
+      dispatch(setJobTitle(data));
+      navi("/create_feedback")
   }  
   
 
   return (
     <>
-    <Box bg="white" p={5} mb={5}  style={{ borderRadius: "10px" }}>
+    < Box bg="white" p={5} mb={5}  style={{ borderRadius: "10px" }}>
       <Flex alignItems='center' gap={2}  >
           <Link to="/job_open">
           <ArrowBackIcon w={6} h={6} /> 
@@ -48,6 +66,20 @@ function EmployeeForm() {
      < Box p={4} color="black" bg="white" style= {{ borderRadius: "10px" }}>
        <Stack spacing={4}>
       
+       <FormControl isInvalid={errors.job_id}>
+          <FormLabel color="gray.600"> Job Id </FormLabel>
+          <Input
+            type="text"
+            placeholder="Enter Job Id"
+            {...register("job_id", {
+              required: " Job id is required",
+            })}
+          />
+          <FormErrorMessage>
+            {errors.job_id && errors.job_id.message}
+          </FormErrorMessage>
+        </FormControl>
+
        <FormControl isInvalid={errors.job_title}>
           <FormLabel color="gray.600"> Job Title </FormLabel>
           <Input
@@ -63,24 +95,44 @@ function EmployeeForm() {
           </FormErrorMessage>
         </FormControl>
 
-        <FormControl isInvalid={errors.primary_skill}>
-          <FormLabel color="gray.600"> Primary Skills </FormLabel>
-          <Textarea
-            type="text"
-            placeholder="Enter Primary Skills"
-            {...register("primary_skill", {
-              required: "Primary Skills is required",
-            })}
-            
-          />
-          <FormErrorMessage>
-            {errors.primary_skill && errors.primary_skill.message}
-          </FormErrorMessage>
-        </FormControl>
+        <Controller
+          control={control}
+          name="skill"
+          rules={{
+            required: "Please Select Skills",
+          }}
+          render={({
+            field: { onChange, onBlur, value, name, ref },
+            fieldState: { error },
+          }) => (
+            <FormControl isInvalid={!!error}>
+              <FormLabel color="gray.600"> Primary Skills </FormLabel>
+              <Select
+              
+                name={name}
+                ref={ref}
+                onChange={(e) => {
+                  onChange(e);
+                }}
+                onBlur={onBlur}
+                value={value}
+                options={Skills}
+                getOptionLabel={(e) => e.label}
+                getOptionValue={(e) => e.value}
+                placeholder="Select Skill"
+                closeMenuOnSelect={true}
+                isMulti
+              />
+              <FormErrorMessage>
+                {error && error.message}
+              </FormErrorMessage>
+            </FormControl>
+          )}
+        />
 
         <FormControl isInvalid={errors.location}>
           <FormLabel color="gray.600"> Location </FormLabel>
-          <Textarea
+          <Input
             type="text"
             placeholder="Enter Location"
             {...register("location", {

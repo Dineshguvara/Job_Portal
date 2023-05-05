@@ -12,7 +12,7 @@ import ProfileUploadForm from './pages/profile_upload/ProfileUploadForm';
 import Feedback from './pages/feedback/Feedback';
 import FeedbackForm from './pages/feedback/FeedbackForm'
  
-import AddSkill from './pages/feedback/AddSkill';
+ 
 function App() {
   return (
     <>
@@ -29,7 +29,7 @@ function App() {
            
           <Route path='/feedback'  element={<Feedback/>} />  
           <Route path='/create_feedback'  element={<FeedbackForm/>} />  
-          <Route path='/create_skill'  element={<AddSkill/>} />  
+          
 
         </Route>
       </Routes>

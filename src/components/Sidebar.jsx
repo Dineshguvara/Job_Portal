@@ -34,7 +34,7 @@ import {
    
 } from 'react-icons/fi'
 import { useSelector, useDispatch } from 'react-redux'
-import  {setNavSize} from "../features/newSlice"
+import  {setNavSize} from  "../features/navSlice"
 import { ArrowBackIcon }  from "@chakra-ui/icons"; 
 
 
@@ -51,6 +51,8 @@ const LinkItems = [
 export default function Sidebar({ children }) {
 
   const navSiz = useSelector((state) => state.poste.value); 
+
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -88,6 +90,7 @@ export default function Sidebar({ children }) {
 const SidebarContent = ({ onClose, ...rest }) => {
    
   const dispatch = useDispatch();
+
   const navSiz = useSelector((state) => state.poste.value)
   
 
@@ -114,9 +117,11 @@ const SidebarContent = ({ onClose, ...rest }) => {
           fontSize="18"
           icon={<FiMenu />}
           color="white"
+
           onClick={() =>  
             dispatch(setNavSize())
           }
+
         />
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
@@ -149,6 +154,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
 };
 
 const NavItem = ({ to, child, icon, children, ...rest}) => {
+  
   const navSiz = useSelector((state) => state.poste.value)
 
   return (
@@ -201,6 +207,9 @@ const NavItem = ({ to, child, icon, children, ...rest}) => {
 
  
 const MobileNav = ({ onOpen, ...rest }) => {
+
+  const navSiz = useSelector((state) => state.poste.value); 
+
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
