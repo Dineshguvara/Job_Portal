@@ -61,7 +61,7 @@ export default function Sidebar({ children }) {
       >
       <SidebarContent
         onClose={() => onClose}   
-        display={{ base: 'none', md: 'block' }}
+        // display={{ base: 'none', md: 'block' }}
       />
       <Drawer
         autoFocus={false}
@@ -76,7 +76,7 @@ export default function Sidebar({ children }) {
         </DrawerContent>
       </Drawer>
        
-      <MobileNav display={{ base: 'flex', md: 'none' }} onOpen={onOpen} />
+      {/* <MobileNav display={{ base: 'flex', md: 'none' }} onOpen={onOpen} /> */}
       <Box
        ml={ navSiz === "small" ? "100px" : "250px"}
       >
@@ -96,9 +96,9 @@ const SidebarContent = ({ onClose, ...rest }) => {
 
   return (
     <Box 
-      bg={useColorModeValue('#006666', 'gray.500')}
+      bg={useColorModeValue('#003d99', 'gray.500')}
       borderRight="1px"
-      borderRightColor={useColorModeValue('#000033', 'gray.700')}
+      borderRightColor={useColorModeValue('#f2f2f2', 'gray.700')}
       w={navSiz === "small" ? "75px" : "220px"}  
       pos="fixed"
       h="full"
@@ -170,8 +170,8 @@ const NavItem = ({ to, child, icon, children, ...rest}) => {
         cursor="pointer"
         color="#fff"
         _hover={{
-          bg: '#00b3b3',
-          color: 'white',
+          bg: '#4d94ff',
+          
         }}
         {...rest}>
         {icon && (
@@ -206,31 +206,31 @@ const NavItem = ({ to, child, icon, children, ...rest}) => {
 };
 
  
-const MobileNav = ({ onOpen, ...rest }) => {
+// const MobileNav = ({ onOpen, ...rest }) => {
 
-  const navSiz = useSelector((state) => state.poste.value); 
+//   const navSiz = useSelector((state) => state.poste.value); 
 
-  return (
-    <Flex
-      ml={{ base: 0, md: 60 }}
-      px={{ base: 4, md: 24 }}
-      height="20"
-      alignItems="center"
-      bg={useColorModeValue('white', 'gray.900')}
-      borderBottomWidth="1px"
-      borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
-      justifyContent="flex-start"
-      {...rest}>
-      <IconButton
-        variant="outline"
-        onClick={onOpen}
-        aria-label="open menu"
-        icon={<FiMenu />}
-      />
+//   return (
+//     <Flex
+//       ml={{ base: 0, md: 60 }}
+//       px={{ base: 4, md: 24 }}
+//       height="20"
+//       alignItems="center"
+//       bg={useColorModeValue('white', 'gray.900')}
+//       borderBottomWidth="1px"
+//       borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
+//       justifyContent="flex-start"
+//       {...rest}>
+//       <IconButton
+//         variant="outline"
+//         onClick={onOpen}
+//         aria-label="open menu"
+//         icon={<FiMenu />}
+//       />
 
-      <Text fontSize="2xl" ml="8" fontFamily="monospace" fontWeight="bold">
+//       <Text fontSize="2xl" ml="8" fontFamily="monospace" fontWeight="bold">
         
-      </Text>
-    </Flex>
-  );
-};
+//       </Text>
+//     </Flex>
+//   );
+// };

@@ -82,7 +82,7 @@ function ProfileUploadForm() {
           </FormErrorMessage>
         </FormControl>
 
-        <Controller
+        {/* <Controller
           control={control}
           name="job_id"
           rules={{
@@ -209,7 +209,7 @@ function ProfileUploadForm() {
               </FormErrorMessage>
             </FormControl>
           )}
-        />
+        /> */}
          
 
        </Stack>

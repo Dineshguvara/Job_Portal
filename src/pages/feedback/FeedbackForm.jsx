@@ -1,6 +1,10 @@
 import React  from "react";
 import {
-  
+  TableContainer,
+  Table,
+  Tr,
+  Th,
+  Td,
   Box,
   Input,
   Stack,
@@ -11,6 +15,8 @@ import {
   Flex,
   Textarea,
   Heading,
+  Thead,
+  Tbody,
   
 } from "@chakra-ui/react";
 import { useForm, Controller } from "react-hook-form";
@@ -44,6 +50,7 @@ function FeedbackForm() {
 
   };
 
+
   return (
     <>
       <Box bg="white" p={5} mb={5} style={{ borderRadius: "10px" }}>
@@ -61,7 +68,7 @@ function FeedbackForm() {
         <Box p={4} color="black" bg="white" style={{ borderRadius: "10px" }}>
           <Stack spacing={4}>
 
-            <Controller
+            <Controller  
               control={control}
               name="candidate_name"
               rules={{
@@ -92,7 +99,65 @@ function FeedbackForm() {
               )}
             />            
 
-          <Controller
+            <TableContainer  mt={10}>
+              <Table variant='simple' > 
+                  <Thead>
+                    <Tr>                      
+                       
+                      <Th>  Primary Skills </Th>
+                      <Th>  Candidate Rating </Th>      
+                      <Th>  Interview Rating </Th>                                                                           
+                    </Tr>
+                  </Thead>
+                  <Tbody>  
+                      {Skills &&
+                        Skills.map((item, index)=>{
+                        return( 
+                          <>
+                            {item.skill.map((pet, index) => {
+                              return (
+                                 <Tr key={index} >
+                                    <Td> {pet.label}</Td>
+                                    <Td>
+                                      <FormControl isInvalid={errors.can_rate}>                                      
+                                        <Input
+                                          type="text"
+                                          placeholder="Enter Candidate Rating"
+                                          {...register("can_rate", {
+                                            required: "Candidate Rating is required",
+                                          })}                                        
+                                        />
+                                        <FormErrorMessage>
+                                          {errors.can_rate && errors.can_rate.message}
+                                        </FormErrorMessage>
+                                      </FormControl>  
+                                    </Td>
+                                    <Td> 
+                                      <FormControl isInvalid={errors.inv_rate}>                          
+                                        <Input
+                                          type="text"
+                                          placeholder="Enter Interviewer Rating"
+                                          {...register("inv_rate", {
+                                            required: "Interviewer Rating is required",
+                                          })}                              
+                                        />
+                                        <FormErrorMessage>
+                                          {errors.inv_rate && errors.inv_rate.message}
+                                        </FormErrorMessage>
+                                      </FormControl>
+                                    </Td>
+                                 </Tr>
+                              );
+                            })}
+                          </>
+                         )     
+                        })                         
+                      }
+                  </Tbody>                        
+              </Table>
+            </TableContainer>
+
+          {/* <Controller
             control={control}
             name="skills"
             rules={{
@@ -154,7 +219,7 @@ function FeedbackForm() {
             <FormErrorMessage>
               {errors.inv_rate && errors.inv_rate.message}
             </FormErrorMessage>
-          </FormControl>
+          </FormControl> */}
       
           </Stack >
           <Flex mt={10}>

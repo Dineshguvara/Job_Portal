@@ -2,9 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     names: [
-        {
-            
-        }       
+      
     ],
  
 
@@ -20,6 +18,7 @@ const initialState = {
 }) 
 
 function addName(state,data) {
+    
     return state.names.concat(data)
 }
 
