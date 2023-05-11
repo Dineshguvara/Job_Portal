@@ -15,7 +15,6 @@ import {
     Flex
   } from '@chakra-ui/react';
 import {  ArrowBackIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
-import jobOpenData from "./JobOpeningData"
 
 function JobOpenings() {
   
@@ -53,22 +52,7 @@ function JobOpenings() {
                         <Tbody >  
                             {    
                                 
-                            jobOpenData.map((item)=>{
-                                return(
-                                    <Tr key={item.id}>
-                                        <Td>{item.id}</Td>
-                                        <Td>{item.job_id}</Td>
-                                        <Td>{item.job_title}</Td>
-                                        <Td>{item.primary_skills}</Td>
-                                        <Td>{item.location}</Td>
-                                        <Td>{item.description}</Td>
-                                        <Td>
-                                            <EditIcon/> &nbsp;  
-                                            <DeleteIcon/>                                           
-                                        </Td>
-                                    </Tr>
-                                )
-                            })             
+                                
                                    
                             }
                         </Tbody>                        
