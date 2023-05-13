@@ -16,9 +16,10 @@ import { useNavigate, useParams, Link } from "react-router-dom";
 import {  ArrowBackIcon } from "@chakra-ui/icons";
 import { Select } from "chakra-react-select";
 import { useSelector, useDispatch } from "react-redux";
-import { setName } from "../../features/setNameSlice";
+import { setPros } from "../../features/profileUpload";
+
 const sorc = [
-  {
+  { 
     value: "naukri",
     label: "Naukri",
   },
@@ -39,18 +40,21 @@ function ProfileUploadForm() {
 
   const dispatch = useDispatch();
 
-  const{register, control, handleSubmit, formState:{errors} }= useForm();
+  const{register, control, handleSubmit, setValue, formState:{errors} }= useForm();
 
-  const { jobs } = useSelector((state) => state.SetJobId);
-  const { jobTitle } = useSelector((state) => state.SetJobTitle);
+  const { jobs } = useSelector((state) => state.jobsOpen);
+ 
+  const itemChange = (e)=>{
+    setValue("job_title",e.job_title);
+  }
 
   const formSubmiter =  (data) =>{   
     console.log(data);
-    dispatch(setName(data));
-    navi('/create_feedback');
+    dispatch(setPros(data));   
+    navi("/pro_upload")
   }  
 
-  return (
+  return (  
     <>
     <Box bg="white" p={5} mb={5}  style={{ borderRadius: "10px" }}>
       <Flex alignItems='center' gap={2}  >
@@ -82,7 +86,7 @@ function ProfileUploadForm() {
           </FormErrorMessage>
         </FormControl>
 
-        {/* <Controller
+        <Controller
           control={control}
           name="job_id"
           rules={{
@@ -99,6 +103,7 @@ function ProfileUploadForm() {
                 ref={ref}
                 onChange={(e) => {
                   onChange(e);
+                  itemChange(e);
                 }}
                 onBlur={onBlur}
                 value={value}
@@ -115,38 +120,21 @@ function ProfileUploadForm() {
           )}
         /> 
       
-        <Controller
-          control={control}
-          name="job_title"
-          rules={{
-            required: "Please Select Job Title",
-          }}
-          render={({
-            field: { onChange, onBlur, value, name, ref },
-            fieldState: { error },
-          }) => (
-            <FormControl isInvalid={!!error}>
-              <FormLabel color="gray.600"> Job Title </FormLabel>
-              <Select
-                name={name}
-                ref={ref}
-                onChange={(e) => {
-                  onChange(e);
-                }}
-                onBlur={onBlur}
-                value={value}
-                options={jobTitle}
-                getOptionLabel={(e) => e.job_title}
-                getOptionValue={(e) => e.job_title}
-                placeholder="Select Job Title"
-                closeMenuOnSelect={true}
-              />
-              <FormErrorMessage>
-                {error && error.message}
-              </FormErrorMessage>
-            </FormControl>
-          )}
-        />
+      <FormControl isInvalid={errors.job_title}>
+          <FormLabel color="gray.600"> Job Title </FormLabel>
+          <Input
+            type="text"
+            placeholder="Enter Job Title"
+            {...register("job_title", {
+              required: " Job Title is required",
+            })}
+          />
+          <FormErrorMessage>
+            {errors.job_title && errors.job_title.message}
+          </FormErrorMessage>
+        </FormControl>
+
+ 
 
         <FormControl isInvalid={errors.email} >
           <FormLabel color="gray.600"> Email </FormLabel>
@@ -163,7 +151,7 @@ function ProfileUploadForm() {
           </FormErrorMessage>
         </FormControl>
 
-        <FormControl isInvalid={errors.document} >
+        {/* <FormControl isInvalid={errors.document} >
           <FormLabel color="gray.600"> Document </FormLabel>
           <Input
             type="file"
@@ -176,7 +164,7 @@ function ProfileUploadForm() {
           <FormErrorMessage>
             {errors.document && errors.document.message}
           </FormErrorMessage>
-        </FormControl>
+        </FormControl> */}
           
         <Controller
           control={control}
@@ -209,7 +197,7 @@ function ProfileUploadForm() {
               </FormErrorMessage>
             </FormControl>
           )}
-        /> */}
+        />
          
 
        </Stack>

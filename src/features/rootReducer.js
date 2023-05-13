@@ -1,16 +1,14 @@
 import { combineReducers  } from "@reduxjs/toolkit";
 import posteReducer from "./navSlice"
-import SetNameReducer from "./setNameSlice"
-import SetJobIdReducer from "./jobIdSlice"
-import SetJobTitleReducer from "./jobTitleSlice";
-import SetSkillReducer from "./skillsSlice";
+import jobsOpenReducer from "./jobOpens"
+import proUpsReducer from "./profileUpload"
+ 
+
 
 const rootReducer = combineReducers({
-    poste: posteReducer,
-    SetName: SetNameReducer,
-    SetJobId:SetJobIdReducer,
-    SetJobTitle:SetJobTitleReducer,
-    SetSkill:SetSkillReducer
+    poste: posteReducer,    
+    jobsOpen:jobsOpenReducer,
+    proUps:proUpsReducer
 });
  
 export default rootReducer;

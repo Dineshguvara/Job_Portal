@@ -16,9 +16,8 @@ import { useNavigate, Link } from "react-router-dom";
 import {  ArrowBackIcon } from "@chakra-ui/icons";
 import { Select } from "chakra-react-select";
 import { useDispatch } from "react-redux";
-import { setId } from "../../features/jobIdSlice";
-import { setJobTitle } from "../../features/jobTitleSlice";
-import { setSkills } from "../../features/skillsSlice";
+import { setJobs } from "../../features/jobOpens";
+
 
 const Skills = [
   {
@@ -44,12 +43,9 @@ function EmployeeForm() {
   const dispatch = useDispatch();
 
   const formSubmiter = async (data) =>{          
-     
-      dispatch(setId(data));
-      dispatch(setJobTitle(data));
-      dispatch(setSkills(data));
-      
-      navi("/create_feedback")
+     console.log(data);
+      dispatch(setJobs(data));
+      navi("/job_open")
   }  
   
 
@@ -67,9 +63,11 @@ function EmployeeForm() {
     </Box>
     <form onSubmit={handleSubmit(formSubmiter)}>
      < Box p={4} color="black" bg="white" style= {{ borderRadius: "10px" }}>
+
+      
        <Stack spacing={4}>
       
-       {/* <FormControl isInvalid={errors.job_id}>
+       <FormControl isInvalid={errors.job_id}>
           <FormLabel color="gray.600"> Job Id </FormLabel>
           <Input
             type="text"
@@ -96,7 +94,7 @@ function EmployeeForm() {
           <FormErrorMessage>
             {errors.job_title && errors.job_title.message}
           </FormErrorMessage>
-        </FormControl> */}
+        </FormControl>
 
         <Controller
           control={control}
@@ -133,7 +131,7 @@ function EmployeeForm() {
           )}
         />
 
-        {/* <FormControl isInvalid={errors.location}>
+        <FormControl isInvalid={errors.location}>
           <FormLabel color="gray.600"> Location </FormLabel>
           <Input
             type="text"
@@ -161,7 +159,7 @@ function EmployeeForm() {
           <FormErrorMessage>
             {errors.description && errors.description.message}
           </FormErrorMessage>
-        </FormControl> */}
+        </FormControl>
 
        </Stack>
        <Flex mt={10}>

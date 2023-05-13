@@ -15,10 +15,14 @@ import {
     Flex
   } from '@chakra-ui/react';
 import {  ArrowBackIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
-import jobOpenData from "./JobOpeningData"
-
+import { useSelector, useDispatch } from 'react-redux';
+import  clearState  from '../../features/jobOpens';
 function JobOpenings() {
-  
+    
+    const { jobs } = useSelector((state) => state.jobsOpen);
+    const dispatch = useDispatch();
+    
+
     return  (
         <>   
             <Box bg="white" p={5} mb={5}  style={{ borderRadius: "10px" }}>
@@ -33,6 +37,9 @@ function JobOpenings() {
                     <Link to={'/create_job_open'}>
                         <Button mr={10} colorScheme='teal'> Add New  &nbsp; ( + )</Button>
                     </Link>
+                    {/* <Button colorScheme="blue" onClick={()=> dispatch(clearState()) }>
+                        Clear Job Data
+                    </Button> */}
                 </Flex>
             </Box>
             < Box p={4} color="black" bg="white" style={{ borderRadius: "10px" }}> 
@@ -51,15 +58,22 @@ function JobOpenings() {
                         </Tr>
                         </Thead>
                         <Tbody >  
-                            {    
-                                
-                            jobOpenData.map((item)=>{
+                            {  jobs  &&                                
+                                jobs.map((item, index)=>{
+                                  
                                 return(
-                                    <Tr key={item.id}>
-                                        <Td>{item.id}</Td>
+                                    <Tr key={index}>
+                                        <Td>{index+1}</Td>                                        
                                         <Td>{item.job_id}</Td>
                                         <Td>{item.job_title}</Td>
-                                        <Td>{item.primary_skills}</Td>
+                                        <Td >
+                                        {item.skill &&
+                                        item.skill.map((pet, idx) => {                                            
+                                            return(
+                                                <>  {pet.label},&nbsp;  </>
+                                            )
+                                        })} 
+                                        </Td>
                                         <Td>{item.location}</Td>
                                         <Td>{item.description}</Td>
                                         <Td>
@@ -68,8 +82,7 @@ function JobOpenings() {
                                         </Td>
                                     </Tr>
                                 )
-                            })             
-                                   
+                            })                                               
                             }
                         </Tbody>                        
                     </Table>

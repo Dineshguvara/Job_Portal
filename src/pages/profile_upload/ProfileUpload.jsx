@@ -15,9 +15,11 @@ import {
     Flex
   } from '@chakra-ui/react'
 import {  ArrowBackIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
-import profileUploadData from './ProfileUploadData'
+import { useSelector } from 'react-redux'; 
 
 function ProfileUpload() {
+
+     const { proUp } = useSelector((state)=> state.proUps)
 
     return  (
         <>   
@@ -52,25 +54,27 @@ function ProfileUpload() {
                         </Tr>
                         </Thead>
                         <Tbody>  
-                            {
-                                 profileUploadData.map((item)=>{
-                                    return(
-                                        <Tr key={item.id}>
-                                            <Td>{item.id}</Td>
-                                            <Td>{item.name}</Td>
-                                            <Td>{item.job_id}</Td>
-                                            <Td>{item.job_title}</Td>
+                            { proUp &&
+                                proUp.map((item, index)=>{
+                                  console.log(proUp)
+                                    return( 
+                                        <Tr key={index}>
+                                            <Td>{index+1}</Td>                                        
+                                            <Td>{item.name}</Td>                                           
+                                            <Td>{item.job_id.job_id}</Td>
+                                            <Td>{item.job_title}</Td>                                             
                                             <Td>{item.email}</Td>
-                                            <Td>{item.document}</Td>
-                                            <Td>{item.source}</Td>                                            
+                                            <Td>{item.document}</Td>                                             
+                                            <Td>{item.source.label}</Td>
                                             <Td>
-                                                <EditIcon/> &nbsp; &nbsp;  
+                                                <EditIcon/> &nbsp;  
                                                 <DeleteIcon/>                                           
                                             </Td>
                                         </Tr>
                                     )
-                                })       
+                                })                 
                             }
+                            
                         </Tbody>                        
                     </Table>
                 </TableContainer>

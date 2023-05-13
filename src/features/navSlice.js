@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
         
     value:"small",
-    
+  
   
 }
 
@@ -18,7 +18,10 @@ export const navSlice = createSlice({
             }else{
                 state.value="small"
             }            
-        }       
+        },       
+ 
+       
+
     }
 }) 
 
