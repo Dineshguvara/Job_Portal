@@ -42,10 +42,9 @@ function EmployeeForm() {
 
   const dispatch = useDispatch();
 
-  const formSubmiter = async (data) =>{          
-     console.log(data);
-      dispatch(setJobs(data));
-      navi("/job_open")
+  const formSubmiter = async (data) =>{            
+    dispatch(setJobs(data));
+    navi("/job_open")
   }  
   
 

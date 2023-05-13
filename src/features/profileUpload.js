@@ -13,7 +13,7 @@ export const ProfileUpload = createSlice({
   reducers: {
     setPro: (state, { payload }) => {
       state.proUp.push(payload);
-      console.log(payload)
+      
     },
     setPros: (state, { payload }) => (state = { ...state, proUp: addPros(state,payload) }),
   },

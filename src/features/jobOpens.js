@@ -37,14 +37,11 @@ export const jobOpens = createSlice({
       
     },
     setJobs: (state, { payload }) => (state = { ...state, jobs: addjobs(state,payload) }),
-  },
-  clearState:(state, {payload})=>{
-    state.jobs = payload;
   }
 });
 function addjobs(state,data) {
   return state.jobs.concat(data)
 }
  
-export const { setJob, setJobs, clearState } = jobOpens.actions;
+export const { setJob, setJobs } = jobOpens.actions;
 export default jobOpens.reducer;

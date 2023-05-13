@@ -24,7 +24,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { Select } from "chakra-react-select";
 import { useSelector, useDispatch } from "react-redux";
-
+import { setFeeds } from "../../features/feedBack";
 
 function FeedbackForm() {
 
@@ -47,11 +47,16 @@ function FeedbackForm() {
   });
 
   const itemChange = (e) => {
-    setValue("email", e.email);
+   
+    setValue("email", e.job_id.skill.map((item)=>{
+      return item.label;
+
+    }));
+  
   }
 
-  const formSubmiter = (data) => {
-    console.log(data);
+  const formSubmiter = async (data) => {
+    dispatch(setFeeds(data));
   };
 
 
@@ -89,7 +94,7 @@ function FeedbackForm() {
                     ref={ref}
                     onChange={(e) => {
                       onChange(e);
-
+                       
                     }}
                     onBlur={onBlur}
                     value={value}
@@ -150,15 +155,16 @@ function FeedbackForm() {
                 </Thead>
                 <Tbody>
                   <Tr   >
+                   
                     <Td>
                       <FormControl isInvalid={errors.email}>
-                        <FormLabel color="gray.600"> Job Title </FormLabel>
                         <Input
                           type="text"
                           placeholder="Enter Job Title"
                           {...register("email", {
                             required: " Job Title is required",
                           })}
+                          disabled={true}
                         />
                         <FormErrorMessage>
                           {errors.email && errors.email.message}
@@ -166,7 +172,7 @@ function FeedbackForm() {
                       </FormControl>
 
                     </Td>
-                    <Td>
+                    {/* <Td>
                       <FormControl isInvalid={errors.can_rate}>
                         <Input
                           type="text"
@@ -193,7 +199,7 @@ function FeedbackForm() {
                           {errors.inv_rate && errors.inv_rate.message}
                         </FormErrorMessage>
                       </FormControl>
-                    </Td>
+                    </Td> */}
                   </Tr>
                   {/* {proUp &&
                         proUp.map((item, index)=>{
@@ -204,14 +210,21 @@ function FeedbackForm() {
                               return (
                                  <Tr key={index} >
                                     <Td>                                            
-                                    <FormControl  >
-                                        <Input
-                                         
-                                          name="skill"        
-                                        
-                                        />
-                                        
-                                      </FormControl>
+                                    <FormControl isInvalid={errors.email}>
+ 
+                                      <Input
+                                        type="text"
+                                        placeholder="Enter Job Title"
+                                        {...register("email", {
+                                          required: " Job Title is required",
+                                        })}
+                                        disabled={true}
+                                        value={pet.label}
+                                      />
+                                      <FormErrorMessage>
+                                        {errors.email && errors.email.message}
+                                      </FormErrorMessage>
+                                    </FormControl>
                                     </Td>
                                     <Td>
                                       <FormControl isInvalid={errors.can_rate}>                                      

@@ -56,7 +56,7 @@ function ProfileUpload() {
                         <Tbody>  
                             { proUp &&
                                 proUp.map((item, index)=>{
-                                  console.log(proUp)
+                                  
                                     return( 
                                         <Tr key={index}>
                                             <Td>{index+1}</Td>                                        

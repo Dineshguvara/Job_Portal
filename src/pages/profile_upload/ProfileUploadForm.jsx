@@ -49,7 +49,7 @@ function ProfileUploadForm() {
   }
 
   const formSubmiter =  (data) =>{   
-    console.log(data);
+    
     dispatch(setPros(data));   
     navi("/pro_upload")
   }  
